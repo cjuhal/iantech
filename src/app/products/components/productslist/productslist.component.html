@@ -1,0 +1,12 @@
+<div class="flex">
+    <div class="flex-box">Nombre</div>
+    <div class="flex-box">Imagen</div>
+    <div class="flex-box">Categoria</div>
+    <div class="flex-box">Tienda</div>
+</div>
+<div class="flex" *ngFor="let item of list">
+    <div class="flex-box">{{item.producto}}</div>
+    <div class="flex-box"><img [src]="item.imgUrl"/></div>
+    <div class="flex-box">{{item.categoria}}</div>
+    <div class="flex-box">{{item.tiendas}}</div>
+</div>

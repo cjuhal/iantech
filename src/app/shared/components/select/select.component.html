@@ -1,0 +1,3 @@
+<select *ngFor="list as item" class="form-control" [(ngModal)]="selected" (change)="action()">
+    <option [value]="item.value">{{item.name}}</option>
+</select>
