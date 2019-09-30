@@ -1,2 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import '~bootstrap/dist/css/bootstrap.min.css';
+
+.img-size{
+    width: 100px;
+    height: auto;
+}
+.center{
+    text-align: center;
+}
+.img-size-small{
+    max-width: 50px;
+    height: auto;
+}

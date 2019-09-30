@@ -1,5 +1,17 @@
-<footer class="footer">
+<footer class="footer py-3 bg-dark mt-5 text-white">
         <div class="container">
-          <span class="text-muted">Christian Juhal Septiembre 2019</span>
+          <div class="row">
+            <div class="col">
+              <h5>Desarrollado por </h5>
+              <label>Christian Juhal © Copyright</label><br>
+              <label>Septiembre 2019</label>
+            </div>
+            <div class="col text-right">
+              <h5>Librerias y Frameworks</h5>
+              <div class="d-flex flex-row justify-content-end align-items-center">
+                <div class="align-self-center p-2" *ngFor="let tecnologia of tecnologias" ><img  style="width: 50px" [src]="tecnologia"/></div>
+                </div>
+            </div>
+          </div>
         </div>
       </footer>

@@ -1,3 +1,4 @@
-<select *ngFor="list as item" class="form-control" [(ngModal)]="selected" (change)="action()">
-    <option [value]="item.value">{{item.name}}</option>
+<label [for]="title">{{title | uppercase }}</label>
+<select [name]="title" [id]="title" class="form-control" [(ngModel)]="selected" (change)="action()" [disabled]="disable">
+        <option *ngFor="let item of list$ | async" [value]="item.id">{{item.value}}</option>
 </select>

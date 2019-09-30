@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'select-tienda',
-  templateUrl: './tienda.component.html',
-  styleUrls: ['./tienda.component.scss']
+  templateUrl: '../../dropdowns.component.html'
 })
 export class TiendaComponent implements OnInit {
-
+  list = [];
   constructor() { }
 
   ngOnInit() {

@@ -1,16 +1,28 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { IProduct } from '../domain/iproduct';
 import { HttpClient } from '@angular/common/http';
+import { delay } from 'rxjs/operators';
+import { Select } from 'src/app/shared/components/domain/select';
+import { IProduct } from '../domain/iproduct';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
-  data = '../../../assets/data/data.json';
+  private ITEMS_URL = 'http://localhost:3000/items';
   constructor(private http: HttpClient) { }
 
-  getProducts(): Observable<IProduct[]>{
-    return this.http.get<IProduct[]>(this.data);
+  getItems(): Observable<Array<IProduct>>{
+    return this.http.get<Array<IProduct>>(this.ITEMS_URL)
+    .pipe(
+      delay(500)
+    );
+  }
+
+  selectProduct(productSelected: Select){
+    return this.http.post(this.ITEMS_URL, productSelected)
+    .pipe(
+      delay(500)
+    );
   }
 }

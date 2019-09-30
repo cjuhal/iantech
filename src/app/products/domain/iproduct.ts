@@ -1,5 +1,7 @@
 export interface IProduct{
-    producto: string;
-    categoria: string;
-    tienda: Array<string>;
+    id: number;
+    product: string;
+    category: string;
+    store: Array<string>;
+    img: string;
 }

@@ -1,12 +1,20 @@
-<div class="flex">
-    <div class="flex-box">Nombre</div>
-    <div class="flex-box">Imagen</div>
-    <div class="flex-box">Categoria</div>
-    <div class="flex-box">Tienda</div>
-</div>
-<div class="flex" *ngFor="let item of list">
-    <div class="flex-box">{{item.producto}}</div>
-    <div class="flex-box"><img [src]="item.imgUrl"/></div>
-    <div class="flex-box">{{item.categoria}}</div>
-    <div class="flex-box">{{item.tiendas}}</div>
+<h3>{{title | uppercase}}</h3>
+<div class="alert alert-danger" *ngIf="((loading$ | async) == undefined) || (loading$ | async) == false">Sin carga de data</div>
+<div class="card" *ngIf="(loading$ | async) != false">
+    <div class="card-header">
+            <div class="row flex-nowrap align-items-center">
+                    <div class="col align-content-center center">Imagen</div>
+                    <div class="col align-content-center center">Nombre</div>
+                    <div class="col align-content-center center">Categoria</div>
+                    <div class="col align-content-center center">Tienda</div>
+            </div>
+    </div>
+    <div class="card-body">
+            <div class="row flex-nowrap align-items-center" *ngFor="let item of list$ | async">
+                    <div class="col align-content-center center"><img class="img-size" [src]="item.img"/></div>
+                    <div class="col align-content-center center">{{item.product}}</div>
+                    <div class="col align-content-center center">{{item.category}}</div>
+                    <div class="col align-content-center center">{{item.store}}</div>
+            </div>
+    </div>
 </div>
