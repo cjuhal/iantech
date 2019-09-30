@@ -20,7 +20,9 @@ export class getProductSucess implements Action {
     readonly type = SelectTypeAction.GET_PRODUCT_SUCCESS;
     //public carga: Array<IProduct>;
     public list: Array<Select>;
-    constructor(public carga: Array<IProduct>) {}
+    constructor(public carga: Array<IProduct>) {
+        this.filterSelect();
+    }
 
     filterSelect() {
         this.list = this.carga.map(data => this.createSelect(data))

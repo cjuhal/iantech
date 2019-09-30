@@ -3,7 +3,7 @@ import { SelectAction, SelectTypeAction } from '../actions/select.actions'
 import { IProduct } from '../../domain/iproduct'
 
 export interface SelectState {
-    items: Array<IProduct>,
+    items: Array<ISelect>,
     loading: boolean,
     error: Error
 }
@@ -24,7 +24,7 @@ export function SelectReducer(state: SelectState = initialState, action: SelectA
         case SelectTypeAction.GET_PRODUCT:
             return { ...state, loading: true }
         case SelectTypeAction.GET_PRODUCT_SUCCESS:
-            return { ...state, items: action.carga, loading: true }
+            return { ...state, items: action.list, loading: true }
         case SelectTypeAction.GET_PRODUCT_FAIL:
             return { ...state, error: action.carga, loading: true }
         default:

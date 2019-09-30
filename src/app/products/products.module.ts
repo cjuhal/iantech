@@ -17,6 +17,7 @@ import { ProductEffects } from './ngrx/effects/product.effects';
 import { SelectReducer } from './ngrx/reducer/select.reducer';
 import { ProductsService } from './services/products.service';
 import { SelectService } from './services/select.service';
+import { SelectEffects } from './ngrx/effects/select.effects';
 
 
 @NgModule({
@@ -27,7 +28,7 @@ import { SelectService } from './services/select.service';
     SharedModule,
     FormsModule,
     StoreModule.forRoot({ data: ProductReducer, select: SelectReducer }),
-    EffectsModule.forRoot([ProductEffects])
+    EffectsModule.forRoot([ProductEffects, SelectEffects])
   ],
   providers: [ProductsService, SelectService],
   //pensando a futuro si quiero exportar el modulo

@@ -14,28 +14,28 @@ import { getProduct } from 'src/app/products/ngrx/actions/select.actions';
 })
 export class SelectComponent implements OnInit {
   @Input("list") list: Array<any>;
-  @Input("title") title: string;
+  @Input("title") title?: string;
   list$: Observable<Array<ISelect>>;
+  loading$: Observable<boolean>;
+  error$: Observable<Error>;
   selected: string;
   disable: boolean;
   constructor(private store: Store<IData>) {
-    this.store.dispatch(new getProduct());
-    this.list$ = this.store.select(store => {
-      console.log(store.select.items);
-      return store.select.items.map(item => item)
-    })
+    this.getOptions();
+    this.setValues();
    }
   ngOnInit() {
-    this.title= "example";
-    this.disable = false;
-    this.checkAvaible();
+    this.title == undefined ? 'Titulo' : this.title;
   }
-  checkAvaible(){
-    if(this.list.length == 0){
-      this.disable = true;
-    }
+  getOptions(){
+    this.store.dispatch(new getProduct());
   }
-  action(){
+  setValues(){
+    this.list$ = this.store.select(store => store.select.items.map(item => item))
+    this.loading$ = this.store.select(store =>store.select.loading);
+    this.error$ = this.store.select(store =>store.select.error);
+  }
+  selection(){
   // this.store.dispatch(setSelect(this.selected));
   }
 }
