@@ -5,7 +5,8 @@ import { Select } from '../domain/select';
 import { IData } from 'src/app/products/domain/idata';
 import { LoadItems } from 'src/app/products/ngrx/actions/product.actions';
 import { ISelect } from 'src/app/products/domain/iselect';
-import { getProduct } from 'src/app/products/ngrx/actions/select.actions';
+import { getProducts } from 'src/app/products/ngrx/actions/select.actions';
+import { IStore } from 'src/app/products/domain/istore';
 
 @Component({
   selector: 'app-select',
@@ -20,22 +21,15 @@ export class SelectComponent implements OnInit {
   error$: Observable<Error>;
   selected: string;
   disable: boolean;
-  constructor(private store: Store<IData>) {
+  constructor(public store: Store<IStore>) {
     this.getOptions();
     this.setValues();
    }
   ngOnInit() {
     this.title == undefined ? 'Titulo' : this.title;
+    this.selected = "0";
   }
-  getOptions(){
-    this.store.dispatch(new getProduct());
-  }
-  setValues(){
-    this.list$ = this.store.select(store => store.select.items.map(item => item))
-    this.loading$ = this.store.select(store =>store.select.loading);
-    this.error$ = this.store.select(store =>store.select.error);
-  }
-  selection(){
-  // this.store.dispatch(setSelect(this.selected));
-  }
+  getOptions(){}
+  setValues(){}
+  selection(){}
 }

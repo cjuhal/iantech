@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { delay } from 'rxjs/operators';
 import { Select } from 'src/app/shared/components/domain/select';
 import { IProduct } from '../domain/iproduct';
+import { IData } from '../domain/idata';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +13,8 @@ export class ProductsService {
   private ITEMS_URL = 'http://localhost:3000/items';
   constructor(private http: HttpClient) { }
 
-  getItems(): Observable<Array<IProduct>>{
-    return this.http.get<Array<IProduct>>(this.ITEMS_URL)
+  getItems(): Observable<Array<IData>>{
+    return this.http.get<Array<IData>>(this.ITEMS_URL)
     .pipe(
       delay(500)
     );

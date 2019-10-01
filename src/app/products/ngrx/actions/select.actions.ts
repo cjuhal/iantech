@@ -4,55 +4,108 @@ import { IProduct } from '../../domain/iproduct';
 import { Select } from 'src/app/shared/components/domain/select';
 
 export enum SelectTypeAction {
-    GET_PRODUCT = '[PRODUCT] Get Product',
-    GET_PRODUCT_SUCCESS = '[PRODUCT] Get Product Success',
-    GET_PRODUCT_FAIL = '[PRODUCT] Get Product Fail',
-    GET_STORE = '[STORE] Get Product',
-    GET_CATEGORY = '[CATEGORY] Get Product',
-    SET_PRODUCT = '[PRODUCT] Set Product'
+    GET_PRODUCTS = '[PRODUCTS] Get Products',
+    GET_PRODUCTS_SUCCESS = '[PRODUCTS] Get Products Success',
+    GET_PRODUCTS_FAIL = '[PRODUCTS] Get Products Fail',
+    GET_STORES = '[STORES] Get Stores',
+    GET_STORES_SUCCESS = '[STORES] Get Stores Success',
+    GET_STORES_FAIL = '[STORES] Get Stores Fail',
+    GET_CATEGORIES = '[CATEGORIES] Get Categories',
+    GET_CATEGORIES_SUCCESS = '[CATEGORIES] Get Categories Success',
+    GET_CATEGORIES_FAIL = '[CATEGORIES] Get Categories Fail',
+    SET_PRODUCTS = '[PRODUCTS] Set Product'
 }
 
-export class getProduct implements Action {
-    readonly type = SelectTypeAction.GET_PRODUCT;
+export class getProducts implements Action {
+    readonly type = SelectTypeAction.GET_PRODUCTS;
 }
 
-export class getProductSucess implements Action {
-    readonly type = SelectTypeAction.GET_PRODUCT_SUCCESS;
-    //public carga: Array<IProduct>;
+export class getCategories implements Action {
+    readonly type = SelectTypeAction.GET_CATEGORIES;
+}
+
+export class getStores implements Action {
+    readonly type = SelectTypeAction.GET_STORES;
+}
+
+export class getSelect {
     public list: Array<Select>;
-    constructor(public carga: Array<IProduct>) {
-        this.filterSelect();
+    constructor(public payload: Array<IProduct>) {
+        this.filterSelect(this.createSelect);
     }
 
-    filterSelect() {
-        this.list = this.carga.map(data => this.createSelect(data))
+    filterSelect(callback) {
+        this.list = this.payload.map(data => callback(data))
+        this.list = this.list.reduce((acu, item) => 
+        acu.some(x=> (x.id === item.id || x.value === item.value)) ? acu : [...acu, item], [])
+
     }
+    createSelect(item) {}
+}
+
+export class getProductsSucess extends getSelect implements Action {
+    readonly type = SelectTypeAction.GET_PRODUCTS_SUCCESS;
+    //public payload: Array<IProduct>;
+    public list: Array<Select>;
     createSelect(item) {
         return new Select(item.id, item.product)
     }
 }
 
-export class getProductFailure implements Action {
-    readonly type = SelectTypeAction.GET_PRODUCT_FAIL;
-    carga: Error;
-    constructor(public carga_: Error) {
-        this.carga = carga_
+export class getCategoriesSucess extends getSelect implements Action {
+    readonly type = SelectTypeAction.GET_CATEGORIES_SUCCESS;
+    createSelect(item) {
+        return new Select(item.id, item.category)
     }
 }
 
-export class setProduct implements Action {
-    readonly type = SelectTypeAction.GET_PRODUCT;
-    carga: Array<IProduct>;
+export class getStoresSucess extends getSelect implements Action {
+    readonly type = SelectTypeAction.GET_STORES_SUCCESS;
+    //public payload: Array<IProduct>;
+    createSelect(item) {
+        return new Select(item.id, item.store)
+    }
+}
+
+
+
+export class getProductsFailure implements Action {
+    readonly type = SelectTypeAction.GET_PRODUCTS_FAIL;
+    payload: Error;
+    constructor(public payload_: Error) {
+        this.payload = payload_
+    }
+}
+
+export class getCategoriesFailure implements Action {
+    readonly type = SelectTypeAction.GET_CATEGORIES_FAIL;
+    payload: Error;
+    constructor(public payload_: Error) {
+        this.payload = payload_
+    }
+}
+
+export class getStoresFailure implements Action {
+    readonly type = SelectTypeAction.GET_STORES_FAIL;
+    payload: Error;
+    constructor(public payload_: Error) {
+        this.payload = payload_
+    }
+}
+
+export class setProducts implements Action {
+    readonly type = SelectTypeAction.GET_PRODUCTS;
+    payload: Array<IProduct>;
     list: Array<Select>;
     select: ISelect;
-    constructor(public carga_: Array<IProduct>, select_: ISelect) {
-        this.carga = carga_
+    constructor(public payload_: Array<IProduct>, select_: ISelect) {
+        this.payload = payload_
         this.select = select_;
         this.filterSelect();
     }
 
     filterSelect() {
-        this.list = this.carga.map(data => this.createSelect(data))
+        this.list = this.payload.map(data => this.createSelect(data))
     }
     createSelect(item) {
         return new Select(item.id, item.product)
@@ -60,20 +113,14 @@ export class setProduct implements Action {
 }
 
 
-export class getStore implements Action {
-    readonly type = SelectTypeAction.GET_STORE;
-    constructor(public carga: ISelect) { }
-}
-
-export class getCategory implements Action {
-    readonly type = SelectTypeAction.GET_CATEGORY;
-    constructor(public carga: ISelect) { }
-}
-
 export type SelectAction =
-    | getProduct
-    | getCategory
-    | getStore
-    | setProduct
-    | getProductSucess
-    | getProductFailure
+    | getProducts
+    | getCategories
+    | getStores
+    | getProductsSucess
+    | getProductsFailure
+    | getCategoriesSucess
+    | getCategoriesFailure
+    | getStoresSucess
+    | getStoresFailure
+    | setProducts

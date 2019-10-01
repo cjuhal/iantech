@@ -11,6 +11,7 @@ import { SharedModule } from '../shared/shared.module';
 import { DropdownsComponent } from './components/dropdowns/dropdowns.component';
 import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { ProductReducer } from './ngrx/reducer/product.recuder';
 import { EffectsModule } from '@ngrx/effects';
 import { ProductEffects } from './ngrx/effects/product.effects';
@@ -28,7 +29,9 @@ import { SelectEffects } from './ngrx/effects/select.effects';
     SharedModule,
     FormsModule,
     StoreModule.forRoot({ data: ProductReducer, select: SelectReducer }),
-    EffectsModule.forRoot([ProductEffects, SelectEffects])
+    EffectsModule.forRoot([ProductEffects, SelectEffects]),
+    StoreDevtoolsModule.instrument()
+
   ],
   providers: [ProductsService, SelectService],
   //pensando a futuro si quiero exportar el modulo

@@ -21,6 +21,7 @@
     "@angular/router": "~8.2.8",
     "@ngrx/effects": "^8.3.0",
     "@ngrx/store": "^8.3.0",
+    "@ngrx/store-devtools": "^8.3.0",
     "bootstrap": "^4.3.1",
     "flex.box": "^3.4.4",
     "json-server": "^0.15.1",

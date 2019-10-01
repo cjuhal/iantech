@@ -22,7 +22,7 @@ export function ProductReducer(state: ItemState = initialState, action: ProductA
     case ProductTypeAction.LOAD_ITEMS:
       return { ...state, loading: true }
     case ProductTypeAction.LOAD_ITEMS_SUCCESS:
-      return { ...state, items: action.carga, loading: true }
+      return { ...state, items: action.list, loading: true }
     case ProductTypeAction.LOAD_ITEMS_FAILURE:
       return { ...state, error: action.carga, loading: false }
     case ProductTypeAction.SELECT_PRODUCT:

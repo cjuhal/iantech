@@ -2,6 +2,6 @@ export interface IProduct{
     id: number;
     product: string;
     category: string;
-    store: Array<string>;
+    store: string;
     img: string;
 }

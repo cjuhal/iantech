@@ -3,13 +3,17 @@ import { SelectAction, SelectTypeAction } from '../actions/select.actions'
 import { IProduct } from '../../domain/iproduct'
 
 export interface SelectState {
-    items: Array<ISelect>,
+    products: Array<ISelect>,
+    categories: Array<ISelect>,
+    stores: Array<ISelect>,
     loading: boolean,
     error: Error
 }
 
 const initialState: SelectState = {
-    items: [],
+    products: [],
+    categories: [],
+    stores: [],
     loading: false,
     error: undefined
 }
@@ -17,16 +21,24 @@ const initialState: SelectState = {
 
 export function SelectReducer(state: SelectState = initialState, action: SelectAction) {
     switch (action.type) {
-        case SelectTypeAction.GET_STORE:
-            return { ...state, items: action.carga, loading: false }
-        case SelectTypeAction.GET_CATEGORY:
-            return { ...state, items: action.carga, loading: false }
-        case SelectTypeAction.GET_PRODUCT:
-            return { ...state, loading: true }
-        case SelectTypeAction.GET_PRODUCT_SUCCESS:
-            return { ...state, items: action.list, loading: true }
-        case SelectTypeAction.GET_PRODUCT_FAIL:
-            return { ...state, error: action.carga, loading: true }
+        case SelectTypeAction.GET_PRODUCTS:
+            return { ...state, loading: false }
+        case SelectTypeAction.GET_PRODUCTS_SUCCESS:
+            return { ...state, products: action.list, loading: true }
+        case SelectTypeAction.GET_PRODUCTS_FAIL:
+            return { ...state, error: action.payload, loading: false }
+        case SelectTypeAction.GET_CATEGORIES:
+            return { ...state, loading: false }
+        case SelectTypeAction.GET_CATEGORIES_SUCCESS:
+            return { ...state, categories: action.list, loading: true }
+        case SelectTypeAction.GET_CATEGORIES_FAIL:
+            return { ...state, error: action.payload, loading: false }
+        case SelectTypeAction.GET_STORES:
+            return { ...state, loading: false }
+        case SelectTypeAction.GET_STORES_SUCCESS:
+            return { ...state, stores: action.list, loading: true }
+        case SelectTypeAction.GET_STORES_FAIL:
+            return { ...state, error: action.payload, loading: false }
         default:
             return state;
     }

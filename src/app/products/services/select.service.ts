@@ -7,13 +7,14 @@ import { ISelect } from '../domain/iselect';
 import { map } from 'rxjs/operators';
 import { Select } from 'src/app/shared/components/domain/select';
 import { LoadItems } from '../ngrx/actions/product.actions';
+import { IStore } from '../domain/istore';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SelectService {
   list$: Observable<Array<IProduct>>;
-  constructor(private store: Store<IData>) {
+  constructor(private store: Store<IStore>) {
     this.list$ = this.store.select(store => store.data.items)
     this.store.dispatch(new LoadItems());
    }
