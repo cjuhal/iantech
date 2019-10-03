@@ -1,5 +1,4 @@
 <label [for]="title">{{title | uppercase }}</label>
-<select [name]="title" [id]="title" class="form-control" [(ngModel)]="selected" (change)="selection()" [disabled]="!(list$| async)?.length > 0">
-    <option value="0">Seleccionar una opción</option>    
-    <option *ngFor="let item of list$ | async" [value]="item.id">{{item.value}}</option>
+<select [name]="title" [id]="title" class="form-control" [(ngModel)]="selected" (change)="selection()" [disabled]="!(list$| async)?.length > 0">  
+    <option *ngFor="let item of (list$ | async)" [ngValue]="item">{{item.value}}</option>
 </select>

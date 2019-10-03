@@ -1,4 +1,4 @@
-import { LoadItems, ProductTypeAction, LoadItemsSuccess, LoadItemsFailure } from '../actions/product.actions';
+import { LoadItems, ListTypeAction, LoadItemsSuccess, LoadItemsFailure } from '../actions/list.actions';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Actions, Effect, ofType} from '@ngrx/effects';
@@ -6,10 +6,10 @@ import { ProductsService } from '../../services/products.service';
 import { Injectable } from '@angular/core';
 
 @Injectable()
-export class ProductEffects {
+export class ListEffects {
     @Effect() loadItems = this.actions$
     .pipe(
-        ofType<LoadItems>(ProductTypeAction.LOAD_ITEMS),
+        ofType<LoadItems>(ListTypeAction.LOAD_ITEMS),
         mergeMap(
             ()=> this.productService.getItems()
             .pipe(

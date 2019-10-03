@@ -15,19 +15,17 @@
             </div>
         </div>
         <div class="card-footer">
-            <!--
             <div class="row">
                     <div class="col">
-                        {{producto.selected}}
+                        {{(product$ | async)?.value}}
                     </div>
                     <div class="col">
-                        {{categoria.selected}}
+                        {{category$ | async}}
                     </div>
                     <div class="col">
-                            {{tienda.selected}}
+                        {{store$ | async}}
                     </div>
             </div>
-            -->
         </div>
 </div>
 

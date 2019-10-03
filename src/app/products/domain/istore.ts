@@ -1,8 +1,9 @@
-import { IProduct } from './iproduct';
-import { ItemState } from '../ngrx/reducer/product.recuder';
+import { ItemState } from '../ngrx/reducer/list.reducer';
+import { DropdownState } from '../ngrx/reducer/dropdown.reducer';
 import { SelectState } from '../ngrx/reducer/select.reducer';
 
 export interface IStore{
-    data: ItemState;
+    list: ItemState;
+    dropdown: DropdownState;
     select: SelectState;
 }

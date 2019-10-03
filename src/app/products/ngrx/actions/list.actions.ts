@@ -2,7 +2,7 @@ import { Action } from '@ngrx/store';
 import { IProduct } from '../../domain/iproduct';
 import { IData } from '../../domain/idata';
 
-export enum ProductTypeAction {
+export enum ListTypeAction {
     LOAD_ITEMS = '[ITEMS] Load Items',
     LOAD_ITEMS_SUCCESS = '[ITEMS] Load Items Sucess',
     LOAD_ITEMS_FAILURE = '[ITEMS] Load Items Failure',
@@ -10,13 +10,13 @@ export enum ProductTypeAction {
 }
 
 export class LoadItems implements Action {
-    readonly type = ProductTypeAction.LOAD_ITEMS;
+    readonly type = ListTypeAction.LOAD_ITEMS;
 
 }
 
 export class LoadItemsSuccess implements Action {
-    readonly type = ProductTypeAction.LOAD_ITEMS_SUCCESS;
-    list: any;
+    readonly type = ListTypeAction.LOAD_ITEMS_SUCCESS;
+    list: Array<IProduct>;
     constructor(public carga: Array<IData>){
         this.list = carga.flatMap(item => 
             item.store.map(
@@ -27,19 +27,12 @@ export class LoadItemsSuccess implements Action {
 }
 
 export class LoadItemsFailure implements Action {
-    readonly type = ProductTypeAction.LOAD_ITEMS_FAILURE;
+    readonly type = ListTypeAction.LOAD_ITEMS_FAILURE;
     constructor(public carga: Error) { }
 }
 
 
-
-export class SelectProduct implements Action {
-    readonly type = ProductTypeAction.SELECT_PRODUCT;
-    constructor(public carga: IProduct) { }
-}
-
-export type ProductAction =
+export type ListAction =
     | LoadItems
     | LoadItemsSuccess
     | LoadItemsFailure
-    | SelectProduct;

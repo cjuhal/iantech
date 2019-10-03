@@ -12,12 +12,14 @@ import { DropdownsComponent } from './components/dropdowns/dropdowns.component';
 import { FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { ProductReducer } from './ngrx/reducer/product.recuder';
 import { EffectsModule } from '@ngrx/effects';
-import { ProductEffects } from './ngrx/effects/product.effects';
-import { SelectReducer } from './ngrx/reducer/select.reducer';
+import { ListEffects } from './ngrx/effects/list.effects';
+import { DropdownReducer } from './ngrx/reducer/dropdown.reducer';
 import { ProductsService } from './services/products.service';
 import { SelectService } from './services/select.service';
+import { DropdownEffects } from './ngrx/effects/dropdown.effects';
+import { ListReducer } from './ngrx/reducer/list.reducer';
+import { SelectReducer } from './ngrx/reducer/select.reducer';
 import { SelectEffects } from './ngrx/effects/select.effects';
 
 
@@ -28,8 +30,8 @@ import { SelectEffects } from './ngrx/effects/select.effects';
     ProductsRoutingModule,
     SharedModule,
     FormsModule,
-    StoreModule.forRoot({ data: ProductReducer, select: SelectReducer }),
-    EffectsModule.forRoot([ProductEffects, SelectEffects]),
+    StoreModule.forRoot({ list: ListReducer, dropdown: DropdownReducer, select: SelectReducer }),
+    EffectsModule.forRoot([ListEffects, DropdownEffects, SelectEffects]),
     StoreDevtoolsModule.instrument()
 
   ],

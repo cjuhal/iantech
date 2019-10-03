@@ -2,6 +2,8 @@ import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { IStore } from '../../domain/istore';
+import { Observable } from 'rxjs';
+import { ISelect } from '../../domain/iselect';
 
 @Component({
   selector: 'app-form',
@@ -10,13 +12,20 @@ import { IStore } from '../../domain/istore';
 })
 export class FormComponent implements OnInit {
   @Input("title") title?: string;
-  SELECTED = "0";
-  myForm: FormGroup = new FormGroup({
-    products: new FormControl(this.SELECTED),
-    categories: new FormControl(this.SELECTED),
-    store: new FormControl(this.SELECTED),
+  product$: Observable<ISelect>;
+  category$: Observable<ISelect>;
+  store$: Observable<ISelect>;
+  form: FormGroup = new FormGroup({
+    product: new FormControl(),
+    category: new FormControl(),
+    store: new FormControl(),
   });
-  constructor(public store: Store<IStore>) {}
+  constructor(public store: Store<IStore>) {
+    console.log(this.form.value);
+    this.product$ = this.store.select(store => {console.log(store.select.product); return store.select.product});
+    this.category$ = this.store.select(store => {console.log(store.select.category+"123"); return store.select.category});
+    this.store$ = this.store.select(store => {console.log(store.select.store+"asd"); return store.select.store});
+  }
 
   ngOnInit() {
   }

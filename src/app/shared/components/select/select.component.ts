@@ -1,11 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { Select } from '../domain/select';
-import { IData } from 'src/app/products/domain/idata';
-import { LoadItems } from 'src/app/products/ngrx/actions/product.actions';
 import { ISelect } from 'src/app/products/domain/iselect';
-import { getProducts } from 'src/app/products/ngrx/actions/select.actions';
 import { IStore } from 'src/app/products/domain/istore';
 
 @Component({

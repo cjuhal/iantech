@@ -1,45 +1,34 @@
-import { ISelect } from '../../domain/iselect'
-import { SelectAction, SelectTypeAction } from '../actions/select.actions'
-import { IProduct } from '../../domain/iproduct'
+import { SelectAction, SelectTypeAction } from '../actions/select.actions';
+import { ISelect } from '../../domain/iselect';
 
 export interface SelectState {
-    products: Array<ISelect>,
-    categories: Array<ISelect>,
-    stores: Array<ISelect>,
-    loading: boolean,
-    error: Error
+  product: ISelect,
+  category: ISelect,
+  store: ISelect
+  loading: boolean
 }
 
 const initialState: SelectState = {
-    products: [],
-    categories: [],
-    stores: [],
-    loading: false,
-    error: undefined
+  product: undefined,
+  category: undefined,
+  store: undefined,
+  loading: false
 }
 
-
 export function SelectReducer(state: SelectState = initialState, action: SelectAction) {
-    switch (action.type) {
-        case SelectTypeAction.GET_PRODUCTS:
-            return { ...state, loading: false }
-        case SelectTypeAction.GET_PRODUCTS_SUCCESS:
-            return { ...state, products: action.list, loading: true }
-        case SelectTypeAction.GET_PRODUCTS_FAIL:
-            return { ...state, error: action.payload, loading: false }
-        case SelectTypeAction.GET_CATEGORIES:
-            return { ...state, loading: false }
-        case SelectTypeAction.GET_CATEGORIES_SUCCESS:
-            return { ...state, categories: action.list, loading: true }
-        case SelectTypeAction.GET_CATEGORIES_FAIL:
-            return { ...state, error: action.payload, loading: false }
-        case SelectTypeAction.GET_STORES:
-            return { ...state, loading: false }
-        case SelectTypeAction.GET_STORES_SUCCESS:
-            return { ...state, stores: action.list, loading: true }
-        case SelectTypeAction.GET_STORES_FAIL:
-            return { ...state, error: action.payload, loading: false }
-        default:
-            return state;
-    }
+  switch (action.type) {
+    case SelectTypeAction.SELECT_PRODUCT:
+      return { ...state, loading: true }
+      case SelectTypeAction.SELECT_PRODUCT_SUCCESS:
+        return { ...state, product: action.payload, loading: true }
+        case SelectTypeAction.SELECT_PRODUCT_FAIL:
+          return { ...state, error: action.error, loading: false }
+    case SelectTypeAction.SELECT_CATEGORY:
+      return { ...state, category: action.payload }
+    case SelectTypeAction.SELECT_STORE:
+      return { ...state, store: action.payload}
+    default:
+      return state;
+  }
+  
 }

@@ -1,12 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { IProduct } from '../../domain/iproduct';
-import { ProductsService } from '../../services/products.service';
-import { IData } from '../../domain/idata';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { LoadItems } from '../../ngrx/actions/product.actions';
+import { LoadItems } from '../../ngrx/actions/list.actions';
 import { IStore } from '../../domain/istore';
-import { stringify } from 'querystring';
 
 @Component({
   selector: 'app-productslist',
@@ -19,9 +16,9 @@ export class ProductslistComponent implements OnInit {
   loading$: Observable<Boolean>;
   error$: Observable<Error>;
   constructor(private store: Store<IStore>) {
-    this.list$ = this.store.select(store => store.data.items)
-    this.loading$ = this.store.select(store => store.data.loading)
-    this.error$ = this.store.select(store => store.data.error)
+    this.list$ = this.store.select(store => store.list.items)
+    this.loading$ = this.store.select(store => store.list.loading)
+    this.error$ = this.store.select(store => store.list.error)
     this.store.dispatch(new LoadItems());
    }
 
