@@ -30,7 +30,5 @@ export class DropdownsComponent implements OnInit {
   }
   getOptions(){}
   setValues(){}
-  selection(){
-    this.store.dispatch(new SelectProduct(this.selected));
-  }
+  selection(){}
 }

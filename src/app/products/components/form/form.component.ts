@@ -21,10 +21,9 @@ export class FormComponent implements OnInit {
     store: new FormControl(),
   });
   constructor(public store: Store<IStore>) {
-    console.log(this.form.value);
-    this.product$ = this.store.select(store => {console.log(store.select.product); return store.select.product});
-    this.category$ = this.store.select(store => {console.log(store.select.category+"123"); return store.select.category});
-    this.store$ = this.store.select(store => {console.log(store.select.store+"asd"); return store.select.store});
+    this.product$ = this.store.select(store => store.select.product);
+    this.category$ = this.store.select(store => store.select.category);
+    this.store$ = this.store.select(store => store.select.store);
   }
 
   ngOnInit() {

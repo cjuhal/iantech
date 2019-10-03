@@ -26,7 +26,6 @@ export class SelectService {
    }
 
    selectProduct(productSelected: ISelect){
-     console.log(productSelected);
     return this.http.post(this.ITEMS_URL, productSelected)
     .pipe(
       delay(500)
