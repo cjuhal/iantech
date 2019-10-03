@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { getStores } from 'src/app/products/ngrx/actions/dropdown.actions';
 import { DropdownsComponent } from '../../dropdowns.component';
-import { SelectProduct, SelectStoreSuccess } from 'src/app/products/ngrx/actions/select.actions';
+import { SelectStore } from 'src/app/products/ngrx/actions/select.actions';
 
 @Component({
   selector: 'select-tienda',
@@ -18,6 +18,6 @@ export class TiendaComponent extends DropdownsComponent implements OnInit {
     this.list$ = this.store.select(store => store.dropdown.stores.map(item => item))
   }
   selection(){
-    this.store.dispatch(new SelectStoreSuccess(this.selected));
+    this.store.dispatch(new SelectStore(this.selected));
   }
 }

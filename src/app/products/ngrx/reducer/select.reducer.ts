@@ -18,23 +18,11 @@ const initialState: SelectState = {
 export function SelectReducer(state: SelectState = initialState, action: SelectAction) {
   switch (action.type) {
     case SelectTypeAction.SELECT_PRODUCT:
-      return { ...state, loading: true }
-    case SelectTypeAction.SELECT_PRODUCT_SUCCESS:
       return { ...state, product: action.payload, loading: true }
-    case SelectTypeAction.SELECT_PRODUCT_FAIL:
-      return { ...state, error: action.error, loading: false }
     case SelectTypeAction.SELECT_CATEGORY:
-      return { ...state, loading: true }
-    case SelectTypeAction.SELECT_CATEGORY_SUCCESS:
       return { ...state, category: action.payload, loading: true }
-    case SelectTypeAction.SELECT_CATEGORY_FAIL:
-      return { ...state, error: action.error, loading: false }
     case SelectTypeAction.SELECT_STORE:
-      return { ...state, loading: true }
-    case SelectTypeAction.SELECT_STORE_SUCCESS:
       return { ...state, store: action.payload, loading: true }
-    case SelectTypeAction.SELECT_STORE_FAIL:
-      return { ...state, error: action.error, loading: false }
     default:
       return state;
   }
