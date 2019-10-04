@@ -4,7 +4,8 @@ import { ISelect } from '../../domain/iselect';
 export enum SelectTypeAction {
     SELECT_PRODUCT = '[PRODUCT] Select Product',
     SELECT_CATEGORY = '[CATEGORY] Select Category',
-    SELECT_STORE = '[STORE] Select Store'
+    SELECT_STORE = '[STORE] Select Store',
+    SELECT_PRODUCT_FAIL = '[PRODUCT] Select Product Fail'
 }
 
 export class SelectProduct implements Action {
@@ -22,7 +23,13 @@ export class SelectStore implements Action {
     constructor(public payload: ISelect){}
 }
 
+export class SelectProductFailure implements Action{
+    readonly type = SelectTypeAction.SELECT_PRODUCT_FAIL;
+    constructor(public error: Error){}
+}
+
 export type SelectAction =
     | SelectProduct
     | SelectCategory
     | SelectStore
+    | SelectProductFailure

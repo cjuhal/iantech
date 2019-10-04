@@ -1,7 +1,7 @@
 import { tap, switchMap, map, catchError, mapTo, concatMap, concatMapTo, mergeMap, filter } from 'rxjs/operators';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { SelectTypeAction, SelectProduct, SelectStore, SelectCategory } from '../actions/select.actions';
+import { SelectTypeAction, SelectProduct, SelectStore, SelectCategory, SelectProductFailure } from '../actions/select.actions';
 import { of } from 'rxjs';
 import { SelectService } from '../../services/select.service';
 import { IStore } from '../../domain/istore';
@@ -15,23 +15,15 @@ export class SelectEffects {
     @Effect() selectItem = this.actions$
         .pipe(
             ofType<SelectProduct>(SelectTypeAction.SELECT_PRODUCT),
-            map(action => {
-                let list$ = this.store.select(store => store.list.items);
-                return list$.pipe(
-                    map(trueList => {
-                        let list = trueList.filter(item => item.product == action.payload.value)
-                        new getStoresSucess(list);
-                       return new getCategoriesSucess(list);
-
-
-                    })
-                    //,catchError(error => of(new SelectProductFailure(error)))
-
+            switchMap(action => this.productService.getList()
+                .pipe(
+                    map(data => data.filter(item => item.product == action.payload.value)),
+                    map(list => new LoadItemsSuccess(list))
+                    //switchMap(list => [new LoadItemsSuccess(list), new getStoresSucess(list),new getCategoriesSucess(list)])
                 )
-
-            })
-
-        )
+            ),
+                catchError(error => of(new SelectProductFailure(error)))
+            )
     /* @Effect() selectCategory = this.actions$
      .pipe(
          ofType<SelectCategory>(SelectTypeAction.SELECT_CATEGORY),

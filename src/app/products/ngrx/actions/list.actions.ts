@@ -16,19 +16,14 @@ export class LoadItems implements Action {
 
 export class LoadItemsSuccess implements Action {
     readonly type = ListTypeAction.LOAD_ITEMS_SUCCESS;
-    list: Array<IProduct>;
-    constructor(public carga: Array<IData>){
-        this.list = carga.flatMap(item => 
-            item.store.map(
-                store_ => { return {id:item.id, product: item.product, category:item.category, img: item.img, store: store_}
-                })
-            )
+    constructor(public payload: Array<IProduct>){
+        
     }
 }
 
 export class LoadItemsFailure implements Action {
     readonly type = ListTypeAction.LOAD_ITEMS_FAILURE;
-    constructor(public carga: Error) { }
+    constructor(public payload: Error) { }
 }
 
 

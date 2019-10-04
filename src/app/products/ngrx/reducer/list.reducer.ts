@@ -20,9 +20,9 @@ export function ListReducer(state: ItemState = initialState, action: ListAction)
     case ListTypeAction.LOAD_ITEMS:
       return { ...state, loading: true }
     case ListTypeAction.LOAD_ITEMS_SUCCESS:
-      return { ...state, items: action.list, loading: true }
+      return { ...state, items: action.payload, loading: true }
     case ListTypeAction.LOAD_ITEMS_FAILURE:
-      return { ...state, error: action.carga, loading: false }
+      return { ...state, error: action.payload, loading: false }
     default:
       return state;
   }
