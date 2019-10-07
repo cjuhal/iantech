@@ -1,20 +1,21 @@
-import { mergeMap, catchError } from 'rxjs/operators';
+import { mergeMap, catchError, flatMap, map } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Actions, Effect, ofType} from '@ngrx/effects';
 import { ProductsService } from '../../services/products.service';
 import { Injectable } from '@angular/core';
-import { DropdownTypeAction, getProductsSucess, getCategoriesSucess, getStoresSucess, getStores, getFailure, getOptions } from '../actions/dropdown.actions';
+import { DropdownTypeAction, getProductsSucess, getCategoriesSucess, getStoresSucess, getFailure, getSelect } from '../actions/dropdown.actions';
 import { IProduct } from './../../domain/iproduct';
 
 @Injectable()
 export class DropdownEffects {
     @Effect() getOptions = this.actions$
     .pipe(
-        ofType<getOptions>(DropdownTypeAction.GET_PRODUCTS,DropdownTypeAction.GET_CATEGORIES, DropdownTypeAction.GET_STORES),
+        ofType<getSelect>(DropdownTypeAction.GET_PRODUCTS,DropdownTypeAction.GET_CATEGORIES, DropdownTypeAction.GET_STORES),
+        flatMap(action => this.productsService.getList()
+        .pipe(
+            map(list=> {return {list,action}}))),
         mergeMap(
-            (action)=> {
-                let list;
-                this.productsService.getList().subscribe(data=> list = data);
+            ({list,action})=> {
                 switch (action.type) {
                     case DropdownTypeAction.GET_PRODUCTS: {
                         return new getProductsSucess(list)

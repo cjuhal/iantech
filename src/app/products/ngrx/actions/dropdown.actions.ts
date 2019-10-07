@@ -36,15 +36,16 @@ export class getProducts extends getOptions {
     readonly type = DropdownTypeAction.GET_PRODUCTS;
 }
 
-export class getCategories extends getOptions {
+export class getCategories extends getOptions  {
     readonly type = DropdownTypeAction.GET_CATEGORIES;
 }
 
-export class getStores extends getOptions {
+export class getStores extends getOptions  {
     readonly type = DropdownTypeAction.GET_STORES;
 }
 
 export class getSelect {
+    readonly type;
     public list: Array<Select>;
     constructor(public payload: Array<IProduct>) {
         this.filterSelect(this.createSelect);
@@ -59,19 +60,8 @@ export class getSelect {
     createSelect(item) {}
 }
 
-/*
-export class SelectDropdown implements Action {
-    list: Array<Select>;
-    constructor(public payload: Array<IProduct>, select: ISelect) {
-        this.payload = this.payload.filter(item => item.store = select.value );
-        this.payload = this.payload.reduce((acu, item) => 
-        acu.some(x=> (x.id === select.id || x.value === select.value)) ? acu : [...acu, item], [])
-    }
-}
-*/
 export class getProductsSucess extends getSelect implements Action {
     readonly type = DropdownTypeAction.GET_PRODUCTS_SUCCESS;
-    //public payload: Array<IProduct>;
     public list: Array<Select>;
     createSelect(item) {
         return {id:item.id, value:item.product}
@@ -87,7 +77,6 @@ export class getCategoriesSucess extends getSelect implements Action {
 
 export class getStoresSucess extends getSelect implements Action {
     readonly type = DropdownTypeAction.GET_STORES_SUCCESS;
-    //public payload: Array<IProduct>;
     createSelect(item) {
         return {id:item.id, value:item.store}
         
