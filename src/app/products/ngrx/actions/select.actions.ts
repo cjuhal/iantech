@@ -5,26 +5,26 @@ export enum SelectTypeAction {
     SELECT_PRODUCT = '[PRODUCT] Select Product',
     SELECT_CATEGORY = '[CATEGORY] Select Category',
     SELECT_STORE = '[STORE] Select Store',
-    SELECT_PRODUCT_FAIL = '[PRODUCT] Select Product Fail'
+    SELECT_FAIL = '[PRODUCT] Select Fail'
 }
-
-export class SelectProduct implements Action {
+export class Select implements Action{
+    readonly type;
+    constructor(public payload: ISelect){}
+}
+export class SelectProduct extends Select {
     readonly type = SelectTypeAction.SELECT_PRODUCT;
-    constructor(public payload: ISelect){}
 }
 
-export class SelectCategory implements Action {
+export class SelectCategory extends Select {
     readonly type = SelectTypeAction.SELECT_CATEGORY;
-    constructor(public payload: ISelect){}
 }
 
-export class SelectStore implements Action {
+export class SelectStore extends Select{
     readonly type = SelectTypeAction.SELECT_STORE;
-    constructor(public payload: ISelect){}
 }
 
-export class SelectProductFailure implements Action{
-    readonly type = SelectTypeAction.SELECT_PRODUCT_FAIL;
+export class SelectFailure implements Action{
+    readonly type = SelectTypeAction.SELECT_FAIL;
     constructor(public error: Error){}
 }
 
@@ -32,4 +32,4 @@ export type SelectAction =
     | SelectProduct
     | SelectCategory
     | SelectStore
-    | SelectProductFailure
+    | SelectFailure

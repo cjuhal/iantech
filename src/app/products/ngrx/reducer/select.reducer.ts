@@ -23,7 +23,7 @@ export function SelectReducer(state: SelectState = initialState, action: SelectA
       return { ...state, category: action.payload, loading: true }
     case SelectTypeAction.SELECT_STORE:
       return { ...state, store: action.payload, loading: true }
-      case SelectTypeAction.SELECT_PRODUCT_FAIL:
+      case SelectTypeAction.SELECT_FAIL:
         return {...state, error: action.error, loading: false}
     default:
       return state;

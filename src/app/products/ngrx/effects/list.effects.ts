@@ -1,4 +1,4 @@
-import { LoadItems, ListTypeAction, LoadItemsSuccess, LoadItemsFailure } from '../actions/list.actions';
+import { LoadItems, ListTypeAction, LoadItemsSuccess, LoadItemsFailure, FiltredItems, FiltredItemsSuccess, FiltredItemsFailure } from '../actions/list.actions';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Actions, Effect, ofType } from '@ngrx/effects';
@@ -25,6 +25,13 @@ export class ListEffects {
                         catchError(error => of(new LoadItemsFailure(error)))
                     )
             )
+        )
+
+        @Effect({dispatch: false}) filtredItems = this.actions$
+        .pipe(
+            ofType<FiltredItems>(ListTypeAction.FILTRED_ITEMS),
+            map(action => new FiltredItemsSuccess(action.payload)),
+            catchError(error => of(new FiltredItemsFailure(error)))
         )
     constructor(
         private actions$: Actions,
