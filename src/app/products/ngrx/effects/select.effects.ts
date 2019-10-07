@@ -7,16 +7,16 @@ import { IStore } from '../../domain/istore';
 import { Store } from '@ngrx/store';
 import { FiltredItems } from '../actions/list.actions';
 import { getStoresSucess, getCategoriesSucess, getProductsSucess } from '../actions/dropdown.actions';
+import { ProductsService } from './../../services/products.service';
 
 @Injectable()
 export class SelectEffects {
     @Effect() selectItem = this.actions$
         .pipe(
             ofType<Select>(SelectTypeAction.SELECT_PRODUCT, SelectTypeAction.SELECT_CATEGORY, SelectTypeAction.SELECT_STORE),
-            flatMap(action => this.store.select(store => store.list.items)
-                .pipe(map(list => { return { list, action } }))),
-            mergeMap(({ list, action }) => {
-
+            mergeMap(action => {
+                let list;
+                this.productsService.getList().subscribe(data=> list = data);
                 switch (action.type) {
                     case SelectTypeAction.SELECT_PRODUCT: {
                         let items = list.filter(item => item.product == action.payload.value)
@@ -38,6 +38,7 @@ export class SelectEffects {
 
     constructor(
         private actions$: Actions,
-        private store: Store<IStore>
+        private store: Store<IStore>,
+        private productsService: ProductsService
     ) { }
 }
