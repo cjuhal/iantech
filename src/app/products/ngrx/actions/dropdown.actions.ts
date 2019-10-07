@@ -5,16 +5,14 @@ import { Select } from 'src/app/shared/components/domain/select';
 export enum DropdownTypeAction {
     GET_PRODUCTS = '[PRODUCTS] Get Products',
     GET_PRODUCTS_SUCCESS = '[PRODUCTS] Get Products Success',
-    GET_PRODUCTS_FAIL = '[PRODUCTS] Get Products Fail',
     GET_STORES = '[STORES] Get Stores',
     GET_STORES_SUCCESS = '[STORES] Get Stores Success',
-    GET_STORES_FAIL = '[STORES] Get Stores Fail',
     GET_CATEGORIES = '[CATEGORIES] Get Categories',
     GET_CATEGORIES_SUCCESS = '[CATEGORIES] Get Categories Success',
-    GET_CATEGORIES_FAIL = '[CATEGORIES] Get Categories Fail',
     SELECT_PRODUCTS_LOAD_OTHERS = '[PRODUCTS] Select Product',
     SELECT_CATEGORIES_LOAD_OTHERS = '[PRODUCTS] Select Categories',
-    SELECT_STORES_LOAD_OTHERS = '[PRODUCTS] Select Stores'
+    SELECT_STORES_LOAD_OTHERS = '[PRODUCTS] Select Stores',
+    GET_FAIL = '[OPTIONS] Get Options Fail'
 }
 
 export class loadProduct implements Action {
@@ -30,15 +28,19 @@ export class loadStore implements Action {
     constructor(public payload: Array<IProduct>) {}
 }
 
-export class getProducts implements Action {
+export class getOptions implements Action {
+    readonly type;
+}
+
+export class getProducts extends getOptions {
     readonly type = DropdownTypeAction.GET_PRODUCTS;
 }
 
-export class getCategories implements Action {
+export class getCategories extends getOptions {
     readonly type = DropdownTypeAction.GET_CATEGORIES;
 }
 
-export class getStores implements Action {
+export class getStores extends getOptions {
     readonly type = DropdownTypeAction.GET_STORES;
 }
 
@@ -92,31 +94,11 @@ export class getStoresSucess extends getSelect implements Action {
     }
 }
 
-
-
-export class getProductsFailure implements Action {
-    readonly type = DropdownTypeAction.GET_PRODUCTS_FAIL;
-    payload: Error;
-    constructor(public payload_: Error) {
-        this.payload = payload_
-    }
+export class getFailure implements Action {
+    readonly type = DropdownTypeAction.GET_FAIL;
+    constructor(public payload: Error) {}
 }
 
-export class getCategoriesFailure implements Action {
-    readonly type = DropdownTypeAction.GET_CATEGORIES_FAIL;
-    payload: Error;
-    constructor(public payload_: Error) {
-        this.payload = payload_
-    }
-}
-
-export class getStoresFailure implements Action {
-    readonly type = DropdownTypeAction.GET_STORES_FAIL;
-    payload: Error;
-    constructor(public payload_: Error) {
-        this.payload = payload_
-    }
-}
 
 
 
@@ -125,11 +107,9 @@ export type DropdownAction =
     | getCategories
     | getStores
     | getProductsSucess
-    | getProductsFailure
     | getCategoriesSucess
-    | getCategoriesFailure
     | getStoresSucess
-    | getStoresFailure
     | loadProduct
     | loadCategories
     | loadStore
+    | getFailure

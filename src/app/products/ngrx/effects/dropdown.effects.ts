@@ -1,49 +1,36 @@
-import { LoadItems, ListTypeAction, LoadItemsSuccess, LoadItemsFailure } from '../actions/list.actions';
-import { mergeMap, map, catchError, switchMap } from 'rxjs/operators';
+import { mergeMap, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Actions, Effect, ofType} from '@ngrx/effects';
 import { ProductsService } from '../../services/products.service';
 import { Injectable } from '@angular/core';
-import { DropdownTypeAction, getProducts, getProductsSucess, getProductsFailure, getCategories, getCategoriesSucess, getCategoriesFailure, getStoresFailure, getStoresSucess, getStores } from '../actions/dropdown.actions';
-import { SelectService } from '../../services/select.service';
+import { DropdownTypeAction, getProductsSucess, getCategoriesSucess, getStoresSucess, getStores, getFailure, getOptions } from '../actions/dropdown.actions';
+import { IProduct } from './../../domain/iproduct';
 
 @Injectable()
 export class DropdownEffects {
-    @Effect() getProducts = this.actions$
+    @Effect() getOptions = this.actions$
     .pipe(
-        ofType<getProducts>(DropdownTypeAction.GET_PRODUCTS),
+        ofType<getOptions>(DropdownTypeAction.GET_PRODUCTS,DropdownTypeAction.GET_CATEGORIES, DropdownTypeAction.GET_STORES),
         mergeMap(
-            ()=> this.selectService.getList()
-            .pipe(
-                map(data => new getProductsSucess(data)),
-                catchError(error => of(new getProductsFailure(error)))
-                )
-            )
+            (action)=> {
+                let list;
+                this.productsService.getList().subscribe(data=> list = data);
+                switch (action.type) {
+                    case DropdownTypeAction.GET_PRODUCTS: {
+                        return new getProductsSucess(list)
+                    }
+                    case DropdownTypeAction.GET_CATEGORIES: {
+                        return new getCategoriesSucess(list)
+                    }
+                    case DropdownTypeAction.GET_STORES: {
+                        return new getStoresSucess(list)
+                    }
+                    default: return list;
+                }
+            }), catchError(error => of(new getFailure(error)))
         )
-        @Effect() getCategories = this.actions$
-        .pipe(
-            ofType<getCategories>(DropdownTypeAction.GET_CATEGORIES),
-            mergeMap(
-                ()=> this.selectService.getList()
-                .pipe(
-                    map(data => new getCategoriesSucess(data)),
-                    catchError(error => of(new getCategoriesFailure(error)))
-                    )
-                )
-            )
-            @Effect() getStores = this.actions$
-            .pipe(
-                ofType<getStores>(DropdownTypeAction.GET_STORES),
-                mergeMap(
-                    ()=> this.selectService.getList()
-                    .pipe(
-                        map(data => new getStoresSucess(data)),
-                        catchError(error => of(new getStoresFailure(error)))
-                        )
-                    )
-                )
     constructor(
         private actions$: Actions,
-        private selectService : SelectService
+        private productsService : ProductsService
     ){}
 }
