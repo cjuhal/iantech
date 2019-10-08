@@ -11,7 +11,7 @@ import { IStore } from '../../models/istore';
   styleUrls: ['./productslist.component.scss']
 })
 export class ProductslistComponent implements OnInit {
-  @Input('title') title?: String;
+  title: String;
   list$: Observable<Array<IProduct>>;
   loading$: Observable<Boolean>;
   error$: Observable<Error>;
@@ -22,6 +22,8 @@ export class ProductslistComponent implements OnInit {
     this.store.dispatch(new LoadItems());
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.title = 'Lista de productos';
+   }
 
 }

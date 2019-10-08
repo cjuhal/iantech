@@ -14,7 +14,6 @@ import { ResetSelects } from '../../store/select/select.actions';
   styleUrls: ['./form.component.scss']
 })
 export class FormComponent implements OnInit {
-  @Input("title") title?: string;
   product$: Observable<ISelect>;
   category$: Observable<ISelect>;
   store$: Observable<ISelect>;
