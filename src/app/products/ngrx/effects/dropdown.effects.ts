@@ -16,13 +16,16 @@ export class DropdownEffects {
                 map(list =>{
                 switch (action.type) {
                     case DropdownTypeAction.GET_PRODUCTS: {
-                        return new getProductsSucess(list)
+                        let items = this.filterSelect(list, function(item){return {id:item.id, value:item.product}})
+                        return new getProductsSucess(items)
                     }
                     case DropdownTypeAction.GET_CATEGORIES: {
-                        return new getCategoriesSucess(list)
+                        let items = this.filterSelect(list, function(item){return {id:item.id, value:item.category}})
+                        return new getCategoriesSucess(items)
                     }
                     case DropdownTypeAction.GET_STORES: {
-                        return new getStoresSucess(list)
+                        let items = this.filterSelect(list, function(item){return {id:item.id, value:item.store}})
+                        return new getStoresSucess(items)
                     }
                     default: return list;
                 }
@@ -32,4 +35,11 @@ export class DropdownEffects {
         private actions$: Actions,
         private productsService : ProductsService
     ){}
+
+    filterSelect(lista,callback) {
+        let listAux = lista.map(data => callback(data))
+        return listAux.reduce((acu, item) => 
+        acu.some(x=> (x.id === item.id || x.value === item.value)) ? acu : [...acu, item], [])
+
+    }
 }

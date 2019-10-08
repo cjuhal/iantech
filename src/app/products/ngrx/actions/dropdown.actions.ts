@@ -46,40 +46,19 @@ export class getStores extends getOptions  {
 
 export class getSelect {
     readonly type;
-    public list: Array<Select>;
-    constructor(public payload: Array<IProduct>) {
-        this.filterSelect(this.createSelect);
-    }
-
-    filterSelect(callback) {
-        this.list = this.payload.map(data => callback(data))
-        this.list = this.list.reduce((acu, item) => 
-        acu.some(x=> (x.id === item.id || x.value === item.value)) ? acu : [...acu, item], [])
-
-    }
-    createSelect(item) {}
+    constructor(public payload: Array<IProduct>) {}
 }
 
 export class getProductsSucess extends getSelect implements Action {
     readonly type = DropdownTypeAction.GET_PRODUCTS_SUCCESS;
-    createSelect(item) {
-        return {id:item.id, value:item.product}
-    }
 }
 
 export class getCategoriesSucess extends getSelect implements Action {
     readonly type = DropdownTypeAction.GET_CATEGORIES_SUCCESS;
-    createSelect(item) {
-        return {id:item.id, value:item.category}
-    }
 }
 
 export class getStoresSucess extends getSelect implements Action {
     readonly type = DropdownTypeAction.GET_STORES_SUCCESS;
-    createSelect(item) {
-        return {id:item.id, value:item.store}
-        
-    }
 }
 
 export class getFailure implements Action {
