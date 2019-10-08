@@ -16,7 +16,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { ListEffects } from './ngrx/effects/list.effects';
 import { DropdownReducer } from './ngrx/reducer/dropdown.reducer';
 import { ProductsService } from './services/products.service';
-import { SelectService } from './services/select.service';
 import { DropdownEffects } from './ngrx/effects/dropdown.effects';
 import { ListReducer } from './ngrx/reducer/list.reducer';
 import { SelectReducer } from './ngrx/reducer/select.reducer';
@@ -35,7 +34,7 @@ import { SelectEffects } from './ngrx/effects/select.effects';
     StoreDevtoolsModule.instrument()
 
   ],
-  providers: [ProductsService, SelectService],
+  providers: [ProductsService],
   //pensando a futuro si quiero exportar el modulo
   exports: [ProductslistComponent, FormComponent, ProductoComponent, CategoriaComponent, TiendaComponent, DashboardComponent, DropdownsComponent],
   

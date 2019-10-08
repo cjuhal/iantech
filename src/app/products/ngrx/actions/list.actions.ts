@@ -18,9 +18,7 @@ export class LoadItems implements Action {
 
 export class LoadItemsSuccess implements Action {
     readonly type = ListTypeAction.LOAD_ITEMS_SUCCESS;
-    constructor(public payload: Array<IProduct>){
-        console.log(payload)
-    }
+    constructor(public payload: Array<IProduct>) { }
 }
 
 export class LoadItemsFailure implements Action {
@@ -30,12 +28,12 @@ export class LoadItemsFailure implements Action {
 
 export class FiltredItems implements Action {
     readonly type = ListTypeAction.FILTRED_ITEMS;
-    constructor(public payload: Array<IProduct>){}
+    constructor(public payload: Array<IProduct>) { }
 }
 
 export class FiltredItemsSuccess implements Action {
     readonly type = ListTypeAction.FILTRED_ITEMS_SUCCESS;
-    constructor(public payload: Array<IProduct>){}
+    constructor(public payload: Array<IProduct>) { }
 }
 
 export class FiltredItemsFailure implements Action {

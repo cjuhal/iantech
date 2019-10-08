@@ -30,7 +30,7 @@ export class ListEffects {
         @Effect() filtredItems = this.actions$
         .pipe(
             ofType<FiltredItems>(ListTypeAction.FILTRED_ITEMS),
-            map(action => { return new FiltredItemsSuccess(action.payload)}),
+            map(action => new FiltredItemsSuccess(action.payload)),
             catchError(error => of(new FiltredItemsFailure(error)))
         )
     constructor(

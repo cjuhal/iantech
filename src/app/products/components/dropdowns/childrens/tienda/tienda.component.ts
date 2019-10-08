@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { getStores } from 'src/app/products/ngrx/actions/dropdown.actions';
 import { DropdownsComponent } from '../../dropdowns.component';
 import { SelectStore } from 'src/app/products/ngrx/actions/select.actions';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'select-tienda',

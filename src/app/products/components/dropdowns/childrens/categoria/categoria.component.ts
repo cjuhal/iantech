@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { getCategories } from 'src/app/products/ngrx/actions/dropdown.actions';
 import { DropdownsComponent } from '../../dropdowns.component';
 import { SelectCategory } from 'src/app/products/ngrx/actions/select.actions';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'select-categoria',

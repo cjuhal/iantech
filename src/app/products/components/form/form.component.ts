@@ -15,18 +15,12 @@ export class FormComponent implements OnInit {
   product$: Observable<ISelect>;
   category$: Observable<ISelect>;
   store$: Observable<ISelect>;
-  form: FormGroup = new FormGroup({
-    product: new FormControl(),
-    category: new FormControl(),
-    store: new FormControl(),
-  });
   constructor(public store: Store<IStore>) {
     this.product$ = this.store.select(store => store.select.product);
     this.category$ = this.store.select(store => store.select.category);
     this.store$ = this.store.select(store => store.select.store);
   }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }

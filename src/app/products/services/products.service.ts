@@ -17,7 +17,6 @@ export class ProductsService {
   list$: Observable<Array<IProduct>>;
   constructor(private http: HttpClient,private store: Store<IStore>) {
     this.list$ = this.store.select(store => store.list.items)
-    this.store.dispatch(new LoadItems());
    }
 
   getList(): Observable<Array<IProduct>>{
