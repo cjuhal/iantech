@@ -2,32 +2,31 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { delay } from 'rxjs/operators';
-import { IData } from '../domain/idata';
+import { IData } from '../models/idata';
 import { environment } from 'src/environments/environment';
-import { IProduct } from './../domain/iproduct';
-import { LoadItems } from '../ngrx/actions/list.actions';
-import { IStore } from './../domain/istore';
+import { IProduct } from '../models/iproduct';
+import { IStore } from '../models/istore';
 import { Store } from '@ngrx/store';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductsService {
-  private ITEMS_URL = environment.apiUrl+'items';
+  private ITEMS_URL = environment.apiUrl + 'items';
   list$: Observable<Array<IProduct>>;
-  constructor(private http: HttpClient,private store: Store<IStore>) {
+  constructor(private http: HttpClient, private store: Store<IStore>) {
     this.list$ = this.store.select(store => store.list.items)
-   }
+  }
 
-  getList(): Observable<Array<IProduct>>{
-     return this.list$;
-   }
-   
-  getItems(): Observable<Array<IData>>{
+  getList(): Observable<Array<IProduct>> {
+    return this.list$;
+  }
+
+  getItems(): Observable<Array<IData>> {
     return this.http.get<Array<IData>>(this.ITEMS_URL)
-    .pipe(
-      delay(500)
-    );
+      .pipe(
+        delay(500)
+      );
   }
 
 }

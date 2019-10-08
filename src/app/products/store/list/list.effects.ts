@@ -1,9 +1,10 @@
-import { LoadItems, ListTypeAction, LoadItemsSuccess, LoadItemsFailure, FiltredItems, FiltredItemsSuccess, FiltredItemsFailure } from '../actions/list.actions';
+import { LoadItems, ListTypeAction, LoadItemsSuccess, LoadItemsFailure, FiltredItems, FiltredItemsSuccess, FiltredItemsFailure } from './list.actions';
 import { mergeMap, map, catchError } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { ProductsService } from '../../services/products.service';
 import { Injectable } from '@angular/core';
+import { Product } from '../../models/product';
 
 @Injectable()
 export class ListEffects {
@@ -13,11 +14,11 @@ export class ListEffects {
             mergeMap(() => this.productService.getItems()
                 .pipe(
                     map(items => {
-                    let list = this.converItemsToProducts(items)
-                    return new LoadItemsSuccess(list)
+                        let list = this.converItemsToProducts(items)
+                        return new LoadItemsSuccess(list)
                     }),
                     catchError(error => of(new LoadItemsFailure(error)))
-                    )
+                )
             )
         )
 
@@ -27,15 +28,13 @@ export class ListEffects {
             map(action => new FiltredItemsSuccess(action.payload)),
             catchError(error => of(new FiltredItemsFailure(error)))
         )
+        
     constructor(
         private actions$: Actions,
         private productService: ProductsService
     ) { }
-    converItemsToProducts(items){
-        return items.flatMap(item => 
-                item.store.map(store_ => {
-                    return { id: item.id, product: item.product, category: item.category, img: item.img, store: store_ }
-                    })
-                )
+
+    converItemsToProducts(items) {
+        return items.flatMap(item => item.store.map(store_ => new Product(item.id, item.product, item.category, store_, item.img)))
     }
 }

@@ -1,13 +1,11 @@
-import { map, catchError, flatMap, mergeMap } from 'rxjs/operators';
+import { catchError, mergeMap } from 'rxjs/operators';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { SelectTypeAction, SelectProduct, SelectFailure, Select, SelectCategory, SelectStore } from '../actions/select.actions';
+import { SelectTypeAction, SelectFailure, Select } from './select.actions';
 import { of } from 'rxjs';
-import { IStore } from '../../domain/istore';
-import { Store } from '@ngrx/store';
-import { FiltredItems } from '../actions/list.actions';
-import { getStoresSucess, getCategoriesSucess, getProductsSucess } from '../actions/dropdown.actions';
-import { ProductsService } from './../../services/products.service';
+import { FiltredItems } from '../list/list.actions';
+import { getStoresSucess, getCategoriesSucess, getProductsSucess } from '../dropdown/dropdown.actions';
+import { ProductsService } from '../../services/products.service';
 
 @Injectable()
 export class SelectEffects {
@@ -16,7 +14,7 @@ export class SelectEffects {
             ofType<Select>(SelectTypeAction.SELECT_PRODUCT, SelectTypeAction.SELECT_CATEGORY, SelectTypeAction.SELECT_STORE),
             mergeMap(action => {
                 let list;
-                this.productsService.getList().subscribe(data=> list = data);
+                this.productsService.getList().subscribe(data => list = data);
                 switch (action.type) {
                     case SelectTypeAction.SELECT_PRODUCT: {
                         let items = list.filter(item => item.product == action.payload.value)
@@ -38,7 +36,6 @@ export class SelectEffects {
 
     constructor(
         private actions$: Actions,
-        private store: Store<IStore>,
         private productsService: ProductsService
     ) { }
 }

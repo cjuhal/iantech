@@ -1,6 +1,6 @@
 
-import { IProduct } from '../../domain/iproduct';
-import { ListTypeAction, ListAction } from '../actions/list.actions';
+import { IProduct } from '../../models/iproduct';
+import { ListTypeAction, ListAction } from './list.actions';
 
 export interface ItemState {
   items: Array<IProduct>,
@@ -13,7 +13,6 @@ const initialState: ItemState = {
   loading: false,
   error: undefined
 }
-
 
 export function ListReducer(state: ItemState = initialState, action: ListAction) {
   switch (action.type) {

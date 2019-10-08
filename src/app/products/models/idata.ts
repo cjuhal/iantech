@@ -1,4 +1,4 @@
-export interface IData{
+export interface IData {
     id: number;
     product: string;
     category: string;

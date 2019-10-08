@@ -1,6 +1,5 @@
 import { Action } from '@ngrx/store';
-import { IProduct } from '../../domain/iproduct';
-import { IData } from '../../domain/idata';
+import { IProduct } from '../../models/iproduct';
 
 export enum ListTypeAction {
     LOAD_ITEMS = '[ITEMS] Load Items',
@@ -40,7 +39,6 @@ export class FiltredItemsFailure implements Action {
     readonly type = ListTypeAction.FILTRED_ITEMS_FAIL;
     constructor(public payload: Error) { }
 }
-
 
 export type ListAction =
     | LoadItems

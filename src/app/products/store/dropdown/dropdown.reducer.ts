@@ -1,6 +1,5 @@
-import { ISelect } from '../../domain/iselect'
-import { DropdownAction, DropdownTypeAction } from '../actions/dropdown.actions'
-import { IProduct } from '../../domain/iproduct'
+import { ISelect } from '../../models/iselect'
+import { DropdownAction, DropdownTypeAction } from './dropdown.actions'
 
 export interface DropdownState {
     products: Array<ISelect>,

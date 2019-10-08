@@ -1,5 +1,5 @@
-import { SelectAction, SelectTypeAction } from '../actions/select.actions';
-import { ISelect } from '../../domain/iselect';
+import { SelectAction, SelectTypeAction } from './select.actions';
+import { ISelect } from '../../models/iselect';
 
 export interface SelectState {
   product: ISelect,

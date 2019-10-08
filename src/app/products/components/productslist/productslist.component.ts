@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IProduct } from '../../domain/iproduct';
+import { IProduct } from '../../models/iproduct';
 import { Observable } from 'rxjs';
-import { Store, select } from '@ngrx/store';
-import { LoadItems } from '../../ngrx/actions/list.actions';
-import { IStore } from '../../domain/istore';
+import { Store } from '@ngrx/store';
+import { LoadItems } from '../../store/list/list.actions';
+import { IStore } from '../../models/istore';
 
 @Component({
   selector: 'app-productslist',
@@ -20,9 +20,8 @@ export class ProductslistComponent implements OnInit {
     this.loading$ = this.store.select(store => store.list.loading)
     this.error$ = this.store.select(store => store.list.error)
     this.store.dispatch(new LoadItems());
-   }
-
-  ngOnInit() {
   }
+
+  ngOnInit() { }
 
 }

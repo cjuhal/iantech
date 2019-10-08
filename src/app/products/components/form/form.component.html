@@ -2,10 +2,13 @@
 <h3>FORMULARIO</h3>
 <div class="card">
     <div class="card-header">
-        Filtrar productos
-        <button (click)="allItems()" class="btn btn-primary float-right btn-sm">
-                <i class="material-icons">autorenew</i>
-        </button>
+        <div class="row">
+            <div class="col"><label class="align-self-center font-weight-bold">Filtrar productos</label></div>
+            <div class="col"><button (click)="allItems()" alt="cargar todos" title="cargar todos" class="btn btn-primary float-right btn-sm">
+                    <i class="material-icons">autorenew</i>
+            </button>
+            </div>
+        </div>
     </div>
         <div class="card-body">
             <div class="row">
@@ -13,7 +16,7 @@
                     <select-producto [title]="'Productos'"></select-producto>
                 </div>
                 <div class="col">
-                    <select-categoria [title]="'Categorias'"></select-categoria>
+                    <select-categoria [title]="'Categorías'"></select-categoria>
                 </div>
                 <div class="col">
                     <select-tienda [title]="'Tiendas'"></select-tienda>

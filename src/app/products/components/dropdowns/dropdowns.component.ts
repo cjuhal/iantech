@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { IStore } from '../../domain/istore';
-import { ISelect } from '../../domain/iselect';
+import { IStore } from '../../models/istore';
+import { ISelect } from '../../models/iselect';
 import { Observable } from 'rxjs';
 
 @Component({

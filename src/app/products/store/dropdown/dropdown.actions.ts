@@ -1,5 +1,5 @@
-import { Action, createAction, props } from '@ngrx/store';
-import { IProduct } from '../../domain/iproduct';
+import { Action } from '@ngrx/store';
+import { IProduct } from '../../models/iproduct';
 
 export enum DropdownTypeAction {
     GET_PRODUCTS = '[PRODUCTS] Get Products',
@@ -20,17 +20,17 @@ export class getProducts extends getOptions {
     readonly type = DropdownTypeAction.GET_PRODUCTS;
 }
 
-export class getCategories extends getOptions  {
+export class getCategories extends getOptions {
     readonly type = DropdownTypeAction.GET_CATEGORIES;
 }
 
-export class getStores extends getOptions  {
+export class getStores extends getOptions {
     readonly type = DropdownTypeAction.GET_STORES;
 }
 
 export class getSelect {
     readonly type;
-    constructor(public payload: Array<IProduct>) {}
+    constructor(public payload: Array<IProduct>) { }
 }
 
 export class getProductsSucess extends getSelect implements Action {
@@ -47,11 +47,8 @@ export class getStoresSucess extends getSelect implements Action {
 
 export class getFailure implements Action {
     readonly type = DropdownTypeAction.GET_FAIL;
-    constructor(public payload: Error) {}
+    constructor(public payload: Error) { }
 }
-
-
-
 
 export type DropdownAction =
     | getProducts

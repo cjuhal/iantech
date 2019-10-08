@@ -1,24 +1,23 @@
 import { Component, OnInit } from '@angular/core';
-import { getProducts } from 'src/app/products/ngrx/actions/dropdown.actions';
+import { getProducts } from 'src/app/products/store/dropdown/dropdown.actions';
 import { DropdownsComponent } from '../../dropdowns.component';
-import { SelectProduct } from 'src/app/products/ngrx/actions/select.actions';
-import { map } from 'rxjs/operators';
+import { SelectProduct } from 'src/app/products/store/select/select.actions';
 
 @Component({
   selector: 'select-producto',
   templateUrl: '../../dropdowns.component.html'
 })
 export class ProductoComponent extends DropdownsComponent implements OnInit {
-  ngOnInit(){
+  ngOnInit() {
     super.ngOnInit();
   }
-  getOptions(){ 
+  getOptions() {
     this.store.dispatch(new getProducts());
   }
-  setValues(){
+  setValues() {
     this.list$ = this.store.select(store => store.dropdown.products.map(item => item))
   }
-  selection(){
+  selection() {
     this.store.dispatch(new SelectProduct(this.selected));
   }
 }
