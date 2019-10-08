@@ -1,7 +1,7 @@
 import { map, catchError, flatMap, mergeMap } from 'rxjs/operators';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Injectable } from '@angular/core';
-import { SelectTypeAction, SelectProduct, SelectFailure, Select } from '../actions/select.actions';
+import { SelectTypeAction, SelectProduct, SelectFailure, Select, SelectCategory, SelectStore } from '../actions/select.actions';
 import { of } from 'rxjs';
 import { IStore } from '../../domain/istore';
 import { Store } from '@ngrx/store';
@@ -11,7 +11,7 @@ import { ProductsService } from './../../services/products.service';
 
 @Injectable()
 export class SelectEffects {
-    @Effect() selectItem = this.actions$
+    /*@Effect() selectItem = this.actions$
         .pipe(
             ofType<Select>(SelectTypeAction.SELECT_PRODUCT, SelectTypeAction.SELECT_CATEGORY, SelectTypeAction.SELECT_STORE),
             mergeMap(action => {
@@ -31,6 +31,55 @@ export class SelectEffects {
                         return [new getCategoriesSucess(items), new getProductsSucess(items), new FiltredItems(items)]
                     }
                     default: return list;
+                }
+            }),
+            catchError(error => of(new SelectFailure(error)))
+        )*/
+
+
+        @Effect() selectItem = this.actions$
+        .pipe(
+            ofType<SelectProduct>(SelectTypeAction.SELECT_PRODUCT),
+            mergeMap(action => {
+                let list;
+                this.productsService.getList().subscribe(data=> list = data);
+                switch (action.type) {
+                    case SelectTypeAction.SELECT_PRODUCT: {
+                        let items = list.filter(item => item.product == action.payload.value)
+                        return [new getStoresSucess(items), new getCategoriesSucess(items), new FiltredItems(items)]
+                    }
+                }
+            }),
+            catchError(error => of(new SelectFailure(error)))
+        )
+
+        @Effect() selectCategory = this.actions$
+        .pipe(
+            ofType<SelectCategory>(SelectTypeAction.SELECT_CATEGORY),
+            mergeMap(action => {
+                let list;
+                this.productsService.getList().subscribe(data=> list = data);
+                switch (action.type) {
+                    case SelectTypeAction.SELECT_CATEGORY: {
+                        let items = list.filter(item => item.category == action.payload.value)
+                        return [new getStoresSucess(items), new getProductsSucess(items), new FiltredItems(items)]
+                    }
+                }
+            }),
+            catchError(error => of(new SelectFailure(error)))
+        )
+
+        @Effect() selectStore = this.actions$
+        .pipe(
+            ofType<SelectStore>(SelectTypeAction.SELECT_STORE),
+            mergeMap(action => {
+                let list;
+                this.productsService.getList().subscribe(data=> list = data);
+                switch (action.type) {
+                    case SelectTypeAction.SELECT_STORE: {
+                        let items = list.filter(item => item.store == action.payload.value)
+                        return [new getCategoriesSucess(items), new getProductsSucess(items), new FiltredItems(items)]
+                    }
                 }
             }),
             catchError(error => of(new SelectFailure(error)))

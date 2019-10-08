@@ -6,7 +6,8 @@ export enum SelectTypeAction {
     SELECT_PRODUCT = '[PRODUCT] Select Product',
     SELECT_CATEGORY = '[CATEGORY] Select Category',
     SELECT_STORE = '[STORE] Select Store',
-    SELECT_FAIL = '[PRODUCT] Select Fail'
+    SELECT_FAIL = '[PRODUCT] Select Fail',
+    RESET = '[RESET] Reset All'
 }
 export class Select implements Action {
     readonly type;
@@ -15,6 +16,11 @@ export class Select implements Action {
 export class SelectFailure implements Action {
     readonly type = SelectTypeAction.SELECT_FAIL;
     constructor(public error: Error) { }
+}
+
+export class ResetSelects implements Action {
+    readonly type = SelectTypeAction.RESET;
+    public payload = undefined;
 }
 export class SelectProduct extends Select {
     readonly type = SelectTypeAction.SELECT_PRODUCT;
@@ -31,3 +37,4 @@ export type SelectAction =
     | SelectCategory
     | SelectStore
     | SelectFailure
+    | ResetSelects

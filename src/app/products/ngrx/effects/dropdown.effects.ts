@@ -3,8 +3,9 @@ import { of } from 'rxjs';
 import { Actions, Effect, ofType} from '@ngrx/effects';
 import { ProductsService } from '../../services/products.service';
 import { Injectable } from '@angular/core';
-import { DropdownTypeAction, getProductsSucess, getCategoriesSucess, getStoresSucess, getFailure, getSelect, getOptions } from '../actions/dropdown.actions';
+import { DropdownTypeAction, getProductsSucess, getCategoriesSucess, getStoresSucess, getFailure, getSelect, getOptions, getCategories, getProducts, getStores } from '../actions/dropdown.actions';
 import { IProduct } from './../../domain/iproduct';
+import { SelectTypeAction } from '../actions/select.actions';
 
 @Injectable()
 export class DropdownEffects {
@@ -31,6 +32,7 @@ export class DropdownEffects {
                 }
             }))), catchError(error => of(new getFailure(error)))
         )
+
     constructor(
         private actions$: Actions,
         private productsService : ProductsService
@@ -39,7 +41,7 @@ export class DropdownEffects {
     filterSelect(lista,callback) {
         let listAux = lista.map(data => callback(data))
         return listAux.reduce((acu, item) => 
-        acu.some(x=> (x.id === item.id || x.value === item.value)) ? acu : [...acu, item], [])
+        acu.some(x=> (x.value === item.value)) ? acu : [...acu, item], [])
 
     }
 }

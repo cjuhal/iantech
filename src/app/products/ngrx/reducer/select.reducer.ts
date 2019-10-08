@@ -25,6 +25,8 @@ export function SelectReducer(state: SelectState = initialState, action: SelectA
       return { ...state, store: action.payload, loading: true }
       case SelectTypeAction.SELECT_FAIL:
         return {...state, error: action.error, loading: false}
+        case SelectTypeAction.RESET:
+        return initialState;
     default:
       return state;
   }
