@@ -62,7 +62,6 @@ export class getSelect {
 
 export class getProductsSucess extends getSelect implements Action {
     readonly type = DropdownTypeAction.GET_PRODUCTS_SUCCESS;
-    public list: Array<Select>;
     createSelect(item) {
         return {id:item.id, value:item.product}
     }
