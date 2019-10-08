@@ -33,12 +33,6 @@ export function DropdownReducer(state: DropdownState = initialState, action: Dro
             return { ...state, categories: action.payload, loading: true }
         case DropdownTypeAction.GET_STORES_SUCCESS:
             return { ...state, stores: action.payload, loading: true }
-        case DropdownTypeAction.SELECT_PRODUCTS_LOAD_OTHERS:
-            return { ...state, stores: action.payload, loading: true }
-        case DropdownTypeAction.SELECT_CATEGORIES_LOAD_OTHERS:
-            return { ...state, stores: action.payload, loading: true }
-        case DropdownTypeAction.SELECT_STORES_LOAD_OTHERS:
-            return { ...state, stores: action.payload, loading: true }
         case DropdownTypeAction.GET_FAIL:
             return { ...state, error: action.payload, loading: false }
         default:

@@ -10,24 +10,18 @@ export class ListEffects {
     @Effect() loadItems = this.actions$
         .pipe(
             ofType<LoadItems>(ListTypeAction.LOAD_ITEMS),
-            mergeMap(
-                () => this.productService.getItems()
-                    .pipe(
-                        map(data => {
-                            let list = data.flatMap(item =>
-                                item.store.map(
-                                    store_ => {
-                                        return { id: item.id, product: item.product, category: item.category, img: item.img, store: store_ }
-                                    })
-                            )
-                            return new LoadItemsSuccess(list)
-                        }),
-                        catchError(error => of(new LoadItemsFailure(error)))
+            mergeMap(() => this.productService.getItems()
+                .pipe(
+                    map(items => {
+                    let list = this.converItemsToProducts(items)
+                    return new LoadItemsSuccess(list)
+                    }),
+                    catchError(error => of(new LoadItemsFailure(error)))
                     )
             )
         )
 
-        @Effect() filtredItems = this.actions$
+    @Effect() filtredItems = this.actions$
         .pipe(
             ofType<FiltredItems>(ListTypeAction.FILTRED_ITEMS),
             map(action => new FiltredItemsSuccess(action.payload)),
@@ -37,4 +31,11 @@ export class ListEffects {
         private actions$: Actions,
         private productService: ProductsService
     ) { }
+    converItemsToProducts(items){
+        return items.flatMap(item => 
+                item.store.map(store_ => {
+                    return { id: item.id, product: item.product, category: item.category, img: item.img, store: store_ }
+                    })
+                )
+    }
 }

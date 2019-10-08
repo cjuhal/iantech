@@ -1,32 +1,16 @@
 import { Action, createAction, props } from '@ngrx/store';
 import { IProduct } from '../../domain/iproduct';
-import { Select } from 'src/app/shared/components/domain/select';
 
 export enum DropdownTypeAction {
     GET_PRODUCTS = '[PRODUCTS] Get Products',
-    GET_PRODUCTS_SUCCESS = '[PRODUCTS] Get Products Success',
-    GET_STORES = '[STORES] Get Stores',
-    GET_STORES_SUCCESS = '[STORES] Get Stores Success',
     GET_CATEGORIES = '[CATEGORIES] Get Categories',
+    GET_STORES = '[STORES] Get Stores',
+    GET_PRODUCTS_SUCCESS = '[PRODUCTS] Get Products Success',
+    GET_STORES_SUCCESS = '[STORES] Get Stores Success',
     GET_CATEGORIES_SUCCESS = '[CATEGORIES] Get Categories Success',
-    SELECT_PRODUCTS_LOAD_OTHERS = '[PRODUCTS] Select Product',
-    SELECT_CATEGORIES_LOAD_OTHERS = '[PRODUCTS] Select Categories',
-    SELECT_STORES_LOAD_OTHERS = '[PRODUCTS] Select Stores',
     GET_FAIL = '[OPTIONS] Get Options Fail'
 }
 
-export class loadProduct implements Action {
-    readonly type = DropdownTypeAction.SELECT_PRODUCTS_LOAD_OTHERS;
-    constructor(public payload: Array<IProduct>) {}
-}
-export class loadCategories implements Action {
-    readonly type = DropdownTypeAction.SELECT_CATEGORIES_LOAD_OTHERS;
-    constructor(public payload: Array<IProduct>) {}
-}
-export class loadStore implements Action {
-    readonly type = DropdownTypeAction.SELECT_STORES_LOAD_OTHERS;
-    constructor(public payload: Array<IProduct>) {}
-}
 
 export class getOptions implements Action {
     readonly type;
@@ -76,7 +60,4 @@ export type DropdownAction =
     | getProductsSucess
     | getCategoriesSucess
     | getStoresSucess
-    | loadProduct
-    | loadCategories
-    | loadStore
     | getFailure
